@@ -29,7 +29,7 @@ def find_stuff(imagename,iter):
     #cv2.imshow("gray",gray)
     _,thresh=cv2.threshold(gray,200,255,cv2.THRESH_BINARY_INV)
     #cv2.imshow("thresh",thresh)
-    if False:
+    if True:
         kernel=np.ones((3,3),np.uint8)
         work=thresh
         for x in range(iter):
@@ -68,7 +68,7 @@ def find_stuff(imagename,iter):
 
 #find_stuff(r"C:\Users\Yuval\Desktop\image pro\FinalProject\images\M40967-1-E.jpg",2)
 
-#find_stuff(r"C:\Users\Yuval\Desktop\image pro\FinalProject\images\M42966-1-E.jpg",3)
+find_stuff(r"C:\Users\Yuval\Desktop\image pro\FinalProject\images\M42966-1-E.jpg",3)
 
 #find_stuff(r"C:\Users\Yuval\Desktop\image pro\FinalProject\images\M43025-1-E.jpg",3)
 

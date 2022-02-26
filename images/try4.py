@@ -126,7 +126,9 @@ def find_stuff(imagename,delta=10):
     kernal=cv2.getStructuringElement(cv2.MORPH_RECT,(3,13))
     dialte=cv2.dilate(thresh,kernal,iterations=1)
     #cv2.imshow("dialte",dialte)
-    
+    #img_edge=cv2.Canny(thresh,100,150, L2gradient = True)
+    #cv2.imshow("image_edge",img_edge)
+
     
     cnts=cv2.findContours(dialte,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
     cnts=cnts[0] if len(cnts)==2 else cnts[1]
@@ -234,13 +236,15 @@ def find_stuff(imagename,delta=10):
   
 
     
-find_stuff(r"C:\Users\Yuval\Desktop\image pro\FinalProject\images\M40967-1-E.jpg",delta=20)
+#find_stuff(r"C:\Users\Yuval\Desktop\image pro\FinalProject\images\M40967-1-E.jpg",delta=20)
 
 #find_stuff(r"C:\Users\Yuval\Desktop\image pro\FinalProject\images\M42966-1-E.jpg",delta=20)
 
 #find_stuff(r"C:\Users\Yuval\Desktop\image pro\FinalProject\images\M43025-1-E.jpg",delta=20)
 
 #find_stuff(r"C:\Users\Yuval\Desktop\image pro\FinalProject\images\M43291-1-E.jpg",delta=20)
+
+find_stuff(r"C:\Users\Yuval\Desktop\image pro\FinalProject\Screenshoots\3colloum.jpg",delta=20)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()

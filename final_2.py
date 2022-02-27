@@ -2,6 +2,10 @@ import os
 import cv2
 import numpy as np
 
+"""
+    Authors: Lidor Eliyahu Shelef, Yuval Avni
+"""
+
 
 # noinspection PyUnresolvedReferences
 def resize_img(_scale_percent, img):

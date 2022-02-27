@@ -4,6 +4,10 @@ import cv2
 import os
 import numpy as np
 
+"""
+    Authors: Yuval Avni, Lidor Eliyahu Shelef
+"""
+
 
 def resize_img(_scale_percent, img):
     width = int(img.shape[1] * _scale_percent / 100)

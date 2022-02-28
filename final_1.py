@@ -105,7 +105,7 @@ def close_contour(R1, R2, delta):
 
 
 # noinspection PyUnresolvedReferences
-def add_number(_sorted_valid_contour, _image_copy, _image_copy_copy):
+def add_number(_sorted_valid_contour, _image_copy, _image_copy_copy,image_name):
     alpha = 0
     for i, row1 in enumerate(_sorted_valid_contour):
         for j, row2 in enumerate(_sorted_valid_contour):
@@ -125,12 +125,22 @@ def add_number(_sorted_valid_contour, _image_copy, _image_copy_copy):
         cv2.rectangle(_image_copy, (row[0], row[1]), (row[2], row[3]), (0, 0, 255), 2)
         cv2.rectangle(_image_copy_copy, (row[0], row[1]), (row[2], row[3]), (0, 0, 255), 2)
 
-    cv2.imshow("after numbers", _image_copy)
-    cv2.imshow("after numbers_copy", _image_copy_copy)
-    with open('valid_contour.csv', 'w', newline='') as f:
+    cv2.imshow("boxes", _image_copy)
+    #cv2.imshow("after numbers_copy", _image_copy_copy)
+    #print(image_name)
+    head,tail= os.path.split(image_name)
+    #print(head)
+    #print(tail)
+    tail=tail[:len(tail)-4]
+    tail+="-box.csv"
+    #print(tail)
+    with open(tail, 'w', newline='') as f:
         write = csv.writer(f)
+        write.writerow(["left_up_x","left_up_y","left_down_x","left_down_y"])
         write.writerows(_sorted_valid_contour)
 
+
+          
 
 # showing the images with normal scale so my pc screen would be enough
 # noinspection PyUnresolvedReferences
@@ -206,8 +216,11 @@ def find_stuff(image_name, delta=10):
     sorted_valid_contour_2 = sort_by_distance(valid_contour_temp)
 
     # add_number(sorted_valid_contour,image_copy,image_copy_copy)
-    add_number(sorted_valid_contour_2, image_copy, image_copy_copy)
-
+    add_number(sorted_valid_contour_2, image_copy, image_copy_copy,image_name)
+      # noinspection PyUnresolvedReferences
+    cv2.waitKey(0)
+    # noinspection PyUnresolvedReferences
+    cv2.destroyAllWindows()
 
 def final_1(image_full_location=""):
     # noinspection PyGlobalUndefined
@@ -218,20 +231,17 @@ def final_1(image_full_location=""):
         image_2_name = f"{os.getcwd()}\\images\\M42966-1-E.jpg"
         image_3_name = f"{os.getcwd()}\\images\\M43025-1-E.jpg"
         image_4_name = f"{os.getcwd()}\\images\\M43291-1-E.jpg"
-        image_5_name = f"{os.getcwd()}\\Screenshoots\\3colloum.jpg"
+        #image_5_name = f"{os.getcwd()}\\Screenshoots\\3colloum.jpg"
 
         find_stuff(image_1_name, delta=20)
-        # find_stuff(image_2_name, delta=20)
-        # find_stuff(image_3_name, delta=20)
-        # find_stuff(image_4_name, delta=20)
-        # find_stuff(image_5_name, delta=20)
+        find_stuff(image_2_name, delta=20)
+        find_stuff(image_3_name, delta=20)
+        find_stuff(image_4_name, delta=20)
+        #find_stuff(image_5_name, delta=20)
     else:
         find_stuff(image_full_location, delta=20)
 
-    # noinspection PyUnresolvedReferences
-    cv2.waitKey(0)
-    # noinspection PyUnresolvedReferences
-    cv2.destroyAllWindows()
+  
 
 
 # Driver

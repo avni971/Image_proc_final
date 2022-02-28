@@ -1,3 +1,4 @@
+import csv
 import os
 import cv2
 import numpy as np
@@ -23,9 +24,9 @@ def resize_img(_scale_percent, img):
 def find_stuff(image_name):
     image = cv2.imread(image_name)
     image = resize_img(scale_percent, image)
-
+    cv2.imshow("image", image)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    cv2.imshow("gray", gray)
+    #cv2.imshow("gray", gray)
 
     # reading image
     img = image
@@ -78,7 +79,20 @@ def find_stuff(image_name):
                 cv2.putText(img, 'circle', (x, y),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
     # displaying the image after drawing contours
-    cv2.imshow('shapes', image)
+    head,tail= os.path.split(image_name)
+    #print(head)
+    #print(tail)
+    tail=tail[:len(tail)-4]
+    tail+="-shapes.csv"
+    cv2.imshow("shapes", image)
+    with open(tail, 'w', newline='') as f:
+        write = csv.writer(f)
+        write.writerows(contours)
+
+    # noinspection PyUnresolvedReferences
+    cv2.waitKey(0)
+    # noinspection PyUnresolvedReferences
+    cv2.destroyAllWindows()
 
 
 def final_2(image_full_location=""):
@@ -90,21 +104,18 @@ def final_2(image_full_location=""):
         image_1_name = f"{os.getcwd()}\\images\\M40967-1-E.jpg"
         find_stuff(image_1_name)
         # Image Number 2
-        # image_2_name = f"{os.getcwd()}\\images\\M42966-1-E.jpg"
-        # find_stuff(image_2_name)
+        image_2_name = f"{os.getcwd()}\\images\\M42966-1-E.jpg"
+        find_stuff(image_2_name)
         # Image Number 3
-        # image_3_name = f"{os.getcwd()}\\images\\M43025-1-E.jpg"
-        # find_stuff(image_3_name)
+        image_3_name = f"{os.getcwd()}\\images\\M43025-1-E.jpg"
+        find_stuff(image_3_name)
         # Image Number 4
-        # image_4_name = f"{os.getcwd()}\\images\\M43291-1-E.jpg"
-        # find_stuff(image_4_name)
+        image_4_name = f"{os.getcwd()}\\images\\M43291-1-E.jpg"
+        find_stuff(image_4_name)
 
     else:
         find_stuff(image_full_location)
-    # noinspection PyUnresolvedReferences
-    cv2.waitKey(0)
-    # noinspection PyUnresolvedReferences
-    cv2.destroyAllWindows()
+  
 
 
 final_2()

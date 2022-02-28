@@ -222,7 +222,7 @@ def absolute_file_paths(directory):
             yield os.path.abspath(os.path.join(dir_path, file_ref))
 
 
-def final_1(image_full_location: str = None, folder_location: str = None):
+def final__1(image_full_location: str = None, folder_location: str = None):
     """
         Only one of the variables should and can be assigned at a time
         :param image_full_location: Flag indicates that the desire action is to run this function on a single image
@@ -253,5 +253,10 @@ def final_1(image_full_location: str = None, folder_location: str = None):
 
 
 # Driver
-# final_1(image_full_location="D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/M40967-1-E.jpg")
-# final_1(folder_location="D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/")
+# final__1(image_full_location="D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/M40967-1-E.jpg")
+# final__1(folder_location="D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/")
+
+# python -c "import final_1; from final_1 import final__1; final__1(
+# image_full_location='D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/M40967-1-E.jpg')"
+# python -c "import final_1; from final_1 import final__1; final__1(
+# folder_location='D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/')"

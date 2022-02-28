@@ -97,7 +97,7 @@ def absolute_file_paths(directory):
             yield os.path.abspath(os.path.join(dir_path, file_ref))
 
 
-def final_2(image_full_location: str = None, folder_location: str = None):
+def final__2(image_full_location: str = None, folder_location: str = None):
     """
         Only one of the variables should and can be assigned at a time
         :param image_full_location: Flag indicates that the desire action is to run this function on a single image
@@ -127,5 +127,10 @@ def final_2(image_full_location: str = None, folder_location: str = None):
         print("Please make sure that at least one variable is defined (and only one of them)")
 
 
-# final_2(image_full_location="D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/M40967-1-E.jpg")
-final_2(folder_location="D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/")
+# final__2(image_full_location="D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/M40967-1-E.jpg")
+# final__2(folder_location="D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/")
+
+# python -c "import final_2; from final_2 import final__2; final__2(
+# image_full_location='D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/M40967-1-E.jpg')"
+# python -c "import final_2; from final_2 import final__2; final__2(
+# folder_location='D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/')"

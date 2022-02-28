@@ -15,7 +15,6 @@ def resize_img(_scale_percent, img):
     dim = (width, height)
     # resize image
     resized = cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
-    print('Resized Dimensions : ', resized.shape)
     return resized
 
 
@@ -26,7 +25,6 @@ def find_stuff(image_name):
     image = resize_img(scale_percent, image)
     cv2.imshow("image", image)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    #cv2.imshow("gray", gray)
 
     # reading image
     img = image
@@ -79,11 +77,9 @@ def find_stuff(image_name):
                 cv2.putText(img, 'circle', (x, y),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
     # displaying the image after drawing contours
-    head,tail= os.path.split(image_name)
-    #print(head)
-    #print(tail)
-    tail=tail[:len(tail)-4]
-    tail+="-shapes.csv"
+    head, tail = os.path.split(image_name)
+    tail = os.getcwd() + "\\Exports\\" + tail[:len(tail) - 4]
+    tail += "-shapes.csv"
     cv2.imshow("shapes", image)
     with open(tail, 'w', newline='') as f:
         write = csv.writer(f)
@@ -95,27 +91,41 @@ def find_stuff(image_name):
     cv2.destroyAllWindows()
 
 
-def final_2(image_full_location=""):
+def absolute_file_paths(directory):
+    for dir_path, _, filenames in os.walk(directory):
+        for file_ref in filenames:
+            yield os.path.abspath(os.path.join(dir_path, file_ref))
+
+
+def final_2(image_full_location: str = None, folder_location: str = None):
+    """
+        Only one of the variables should and can be assigned at a time
+        :param image_full_location: Flag indicates that the desire action is to run this function on a single image
+        :type image_full_location: str
+        :example image_full_location: for example C:users/Lidor/ImageProcessing/FinalProject/images/image_1.jpg
+        :param folder_location: Flag that indicates we should run on the entire folder that is given
+        :type folder_location: str
+        :example folder_location: for example C:users/Lidor/ImageProcessing/FinalProject/images/
+    """
+    image_formats = [
+        'png', 'jpg', 'jpeg'
+    ]
     # noinspection PyGlobalUndefined
     global scale_percent
     scale_percent = 10  # percent of original size
-    if image_full_location == "":
-        # Image Number 1
-        image_1_name = f"{os.getcwd()}\\images\\M40967-1-E.jpg"
-        find_stuff(image_1_name)
-        # Image Number 2
-        image_2_name = f"{os.getcwd()}\\images\\M42966-1-E.jpg"
-        find_stuff(image_2_name)
-        # Image Number 3
-        image_3_name = f"{os.getcwd()}\\images\\M43025-1-E.jpg"
-        find_stuff(image_3_name)
-        # Image Number 4
-        image_4_name = f"{os.getcwd()}\\images\\M43291-1-E.jpg"
-        find_stuff(image_4_name)
-
-    else:
+    if image_full_location is not None and folder_location is None:
+        # image_1_name = f"{os.getcwd()}\\images\\M40967-1-E.jpg"
         find_stuff(image_full_location)
-  
+    elif folder_location is not None and image_full_location is None:
+        images_in_folder = absolute_file_paths(folder_location)  # os.listdir(folder_location)
+        for idx, image_i in enumerate(images_in_folder):
+            if image_i.split('.')[-1] in image_formats:
+                print(f"Opening image {idx}")
+                find_stuff(image_i)
+                print(f"Closing image {idx}")
+    else:
+        print("Please make sure that at least one variable is defined (and only one of them)")
 
 
-final_2()
+# final_2(image_full_location="D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/M40967-1-E.jpg")
+final_2(folder_location="D:/Study/P.Languages/Python/Workspace_2019/ImageProcessing/Final/images/")
